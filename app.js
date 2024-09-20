@@ -1,18 +1,18 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var uaparser = require('ua-parser-js')
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const uaparser = require('ua-parser-js')
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var userInfoRouter = require('./routes/userInfo');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const userInfoRouter = require('./routes/userInfo');
 
 const req = require("express/lib/request");
 const ua = require("./components/UA")
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
