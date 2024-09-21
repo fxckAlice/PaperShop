@@ -1,0 +1,46 @@
+services:
+
+  db:
+    image: postgres
+    restart: always
+    networks:
+      - my_network
+    environment:
+      POSTGRES_PASSWORD: "drvrVIRT56"
+      POSTGRES_USER: "postgres"
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "psql -U postgres -c 'SELECT 1'"]
+      interval: 5s
+      timeout: 1s
+      retries: 5
+      start_period: 5s
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8088:8000"
+
+  shop:
+    image: fxckalice/shop
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_PASSWORD: "drvrVIRT56"
+      DB_HOST: "host.docker.internal"
+      DB_USER: "postgres"
+      DB_PORT: "5432"
+      DB_BASE: "shop"
+
+volumes:
+  db_data: null
+networks:
+  my_network:
+    driver: bridge
