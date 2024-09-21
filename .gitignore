@@ -66,3 +66,7 @@ coverage/
 # Build artifacts
 dist/
 build/
+
+# docker
+Dockerfile
+docker-compose.yml
