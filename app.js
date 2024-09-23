@@ -11,6 +11,7 @@ const userInfoRouter = require('./routes/userInfo');
 
 const req = require("express/lib/request");
 const ua = require("./components/UA")
+const pool = require("./components/db")
 
 const app = express();
 
@@ -46,6 +47,21 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', { title: err.statusCode });
 });
+
+
+// testing db connection
+const testConnection = async () => {
+  try {
+    const client = await pool.connect();
+    console.log('DB Connection succeeded!');
+    client.release();
+  } catch (err) {
+    console.error('Connection Error!', err);
+  }
+};
+
+testConnection();
+
 
 
 app.set('trust proxy', true);
