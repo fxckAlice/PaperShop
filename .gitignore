@@ -70,3 +70,6 @@ build/
 # docker
 Dockerfile
 docker-compose.yml
+
+#SQL scripts
+SQLscript/

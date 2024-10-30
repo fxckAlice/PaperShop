@@ -11,7 +11,7 @@ const userInfoRouter = require('./routes/userInfo');
 
 const req = require("express/lib/request");
 const ua = require("./components/UA")
-const pool = require("./components/db")
+const connection = require("./components/db")
 
 const app = express();
 
@@ -50,17 +50,14 @@ app.use(function(err, req, res, next) {
 
 
 // testing db connection
-const testConnection = async () => {
-  try {
-    const client = await pool.connect();
-    console.log('DB Connection succeeded!');
-    client.release();
-  } catch (err) {
-    console.error('Connection Error!', err);
+connection.connect((err) => {
+  if (err) {
+    console.error("Connection error", err);
   }
-};
-
-testConnection();
+  else {
+    console.info("Connected to the database");
+  }
+})
 
 
 
