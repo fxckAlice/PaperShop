@@ -10,18 +10,21 @@ class DBRepo{
         port: process.env.DB_PORT || 3306,
         database: process.env.DB_DATABASE || 'shop',
     })
-    static getCategories(){
+    static getCategories() {
         const query = 'SELECT * FROM categories';
-        this.instance.connection.query(query, (err, result) => {
-            if (err) {
-                console.error(err);
-            }
-            else{
-                console.log(JSON.stringify(result));
-                return JSON.stringify(result)
-            }
-        })
+
+        return new Promise((resolve, reject) => {
+            this.instance.connection.query(query, (err, result) => {
+                if (err) {
+                    console.error(err);
+                    reject(err);
+                } else {
+                    resolve(result);
+                }
+            });
+        });
     }
+
     static instance = null;
     static getDBRepo(){
         if(this.instance == null){

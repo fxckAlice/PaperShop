@@ -9,6 +9,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const userInfoRouter = require('./routes/userInfo');
 const categoriesRouter = require('./routes/categories');
+const dBQueryRouter = require('./routes/DBQuery');
 
 const req = require("express/lib/request");
 const ua = require("./components/UA")
@@ -33,6 +34,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/userInfo', userInfoRouter);
 app.use('/categories', categoriesRouter);
+app.use("/db", dBQueryRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
