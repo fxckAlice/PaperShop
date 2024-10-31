@@ -8,10 +8,11 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const userInfoRouter = require('./routes/userInfo');
+const categoriesRouter = require('./routes/categories');
 
 const req = require("express/lib/request");
 const ua = require("./components/UA")
-const connection = require("./components/db")
+const DBRepo = require("./components/db")
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/userInfo', userInfoRouter);
+app.use('/categories', categoriesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -50,7 +52,7 @@ app.use(function(err, req, res, next) {
 
 
 // testing db connection
-connection.connect((err) => {
+DBRepo.getDBRepo().connection.connect((err) => {
   if (err) {
     console.error("Connection error", err);
   }
